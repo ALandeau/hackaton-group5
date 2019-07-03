@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "nodemon server.js"
+  },
+  "dependencies": {
+    "socket.io": "^2.2.0"
+  }
+}
