@@ -12,6 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const loadMinified = require('./load-minified')
 
 const env = config.build.env
@@ -34,7 +35,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new webpack.optimize.minimize({
+    new UglifyJsPlugin({
       compress: {
         warnings: false
       },
