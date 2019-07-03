@@ -1,1 +1,1 @@
-web: yarn workspace run serve
+web: yarn workspace server run serve
