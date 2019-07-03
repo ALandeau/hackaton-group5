@@ -30,11 +30,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          enforce: true
+          enforce: true,
+          chunks: 'all'
         },
         manifest: {
           name: 'manifest',
-          chunks: ['vendor']
+          enforce: true,
+          chunks: 'all'
         }
       }
     }
