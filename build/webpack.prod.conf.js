@@ -9,11 +9,12 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const loadMinified = require('./load-minified')
 
+const devMode = process.env.NODE_ENV !== 'production';
 const env = config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -41,8 +42,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
+    new MiniCssExtractPlugin({
+      filename: devMode ? utils.assetsPath('css/[name].css') : utils.assetsPath('css/[name].[contenthash].css'),
+      chunkFilename: devMode ? utils.assetsPath('css/[id].css') : utils.assetsPath('css/[id].[contenthash].css')
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
