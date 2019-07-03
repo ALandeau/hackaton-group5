@@ -36,9 +36,11 @@ const webpackConfig = merge(baseWebpackConfig, {
       'process.env': env
     }),
     new UglifyJsPlugin({
-      compress: {},
-      warnings: false,
-      sourceMap: true
+      uglifyOptions: {
+        warnings: false,
+        compress: {},
+        sourceMap: true
+      }
     }),
     // extract css into its own file
     new MiniCssExtractPlugin({
