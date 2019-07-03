@@ -30,16 +30,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          minChunks: function (module, count) {
-            // any required modules inside node_modules are extracted to vendor
-            return (
-              module.resource &&
-              /\.js$/.test(module.resource) &&
-              module.resource.indexOf(
-                path.join(__dirname, '../node_modules')
-              ) === 0
-            )
-          }
+          enforce: true
         },
         manifest: {
           name: 'manifest',
