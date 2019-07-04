@@ -22,7 +22,7 @@
       callUser (user) {
         this.$router.push({
           name: 'Call',
-          params: {user_id: user.socket_id}
+          params: {user_id: user.room_id}
         })
       }
     }

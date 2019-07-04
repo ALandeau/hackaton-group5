@@ -1,4 +1,5 @@
 let io = require('socket.io')(3000)
+let crypto = require('crypto')
 let os = require('os')
 
 console.log('socket server exposed on : 3000')
@@ -10,13 +11,15 @@ io.on('connection', (socket) => {
     console.log('New User : ', payload.username)
     connectedUsers.push({
       username: payload.username,
-      socket: socket
+      socket: socket,
+      room_id : crypto.randomBytes(10).toString('hex')
     })
     emitUsers()
   })
 
   socket.on('create-or-join', function (room) {
     let clientsInRoom = io.sockets.adapter.rooms[room]
+    console.log('there are clients in room : ', clientsInRoom)
     let numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0
     if (numClients === 0) {
       console.log('Client ID ' + socket.id + ' created room ' + room)
@@ -26,7 +29,20 @@ io.on('connection', (socket) => {
       console.log('Client ID ' + socket.id + ' joined room ' + room)
       socket.join(room)
       socket.emit('joined-room', room, socket.id)
+    }
+
+    if (numClients === 2) {
       io.sockets.in(room).emit('room-ready')
+    }
+  })
+
+  socket.on('call_user', (payload) => {
+    const user = connectedUsers.find((user) => user.room_id === payload.roomId)
+    if(user === undefined) return
+    console.log('Calling user : ', user.username)
+    log('Calling user : ', user.username)
+    if (user) {
+      user.socket.emit('incoming_call', {user_room_id : payload.roomId, username : payload.callerName})
     }
   })
 
@@ -38,8 +54,7 @@ io.on('connection', (socket) => {
 
   socket.on('message', function (payload) {
     log('Client said: ', payload.message)
-    console.log('Clien Message : ', payload.message)
-    // socket.broadcast.emit('message', message)
+    console.log('Client Message : ', payload.message)
     socket.to(payload.room).emit('message', payload.message)
   })
 
@@ -70,7 +85,8 @@ function emitUsers () {
   io.emit('refresh-users', connectedUsers.map(user => {
     return {
       username: user.username,
-      socket_id: user.socket.id
+      socket_id: user.socket.id,
+      room_id: user.room_id
     }
   }))
 }

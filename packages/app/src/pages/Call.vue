@@ -70,7 +70,9 @@
       this.callButton.disabled = true
       this.hangupButton.disabled = true
 
-      navigator.mediaDevices.getUserMedia(this.constraints)
+      navigator.mediaDevices.getUserMedia({
+        video: true
+      })
         .then(this.gotStream)
         .catch(function (e) {
           alert('getUserMedia() error: ' + e.name)
@@ -82,6 +84,7 @@
       socket.on('created-room', (room, socketId) => {
         this.isInitiator = true
         this.isChannelReady = true
+        socket.emit('call_user', {roomId: this.roomId, callerName: this.$store.state.username})
         console.log('room created')
       })
       socket.on('joined-room', (room, socketId) => {

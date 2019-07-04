@@ -6,12 +6,24 @@
     <main>
       <router-view></router-view>
     </main>
+    <IncomingCall v-if="hasIncomingCall" :user="caller"/>
   </div>
 </template>
 
 <script>
+  import IncomingCall from './components/IncomingCall'
+
   export default {
-    name: 'app'
+    name: 'app',
+    components: {IncomingCall},
+    computed: {
+      hasIncomingCall () {
+        return this.$store.state.incomingCall
+      },
+      caller () {
+        return this.$store.state.caller
+      }
+    }
   }
 </script>
 

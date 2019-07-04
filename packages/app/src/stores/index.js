@@ -6,7 +6,9 @@ Vue.use(Vuex)
 
 const baseState = {
   username: '',
-  users: []
+  users: [],
+  incomingCall: false,
+  caller: ''
 }
 
 const initStore = function () {
@@ -16,6 +18,9 @@ const initStore = function () {
     socket.emit('username', {
       username: localStore.username
     })
+
+    localStore.caller = ''
+    localStore.incomingCall = false
   }
   return {...baseState, ...localStore}
 }
@@ -28,6 +33,14 @@ const store = new Vuex.Store({
     },
     USERS (state, users) {
       Vue.set(state, 'users', users)
+    },
+    INCOMING_CALL (state, payload) {
+      state.incomingCall = true
+      Vue.set(state, 'caller', payload)
+    },
+    RESET_CALL_INFO (state) {
+      state.incomingCall = false
+      Vue.set(state, 'caller', {})
     }
   },
   getters: {},
@@ -40,6 +53,17 @@ const store = new Vuex.Store({
     },
     refreshUsers ({commit}, users) {
       commit('USERS', users)
+    },
+    incomingCall ({state, commit}, payload) {
+      console.log('sate payload : ', payload)
+      console.log('incomin call from : ', payload.username)
+      commit('INCOMING_CALL', {
+        room_id: payload.user_room_id,
+        username: payload.username
+      })
+    },
+    acceptCall ({commit}) {
+      commit('RESET_CALL_INFO')
     }
   }
 })

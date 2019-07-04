@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import store from '../stores'
-import router from '../router'
+// import router from '../router'
 
 let socket = io('localhost:3000')
 
@@ -10,10 +10,10 @@ export const startCall = function (userId) {
 
 export default socket
 
-socket.on('accept-call', (payload) => {
-  router.push({
-    name: 'Call',
-    params: {user_id: payload.socket_id}
+socket.on('incoming_call', (payload) => {
+  store.dispatch('incomingCall', {
+    user_room_id: payload.user_room_id,
+    username: payload.username
   })
 })
 
