@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <span>COCO</span>
+      <img src="/static/img/coco.png" alt="Toucan">
     </header>
     <main>
       <router-view></router-view>
@@ -33,7 +33,7 @@
   }
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
@@ -42,24 +42,35 @@
   main {
     height: calc(100vh - 56px);
     width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
   }
 
   header {
     margin: 0;
-    height: 56px;
-    padding: 0 16px 0 24px;
-    background-color: #35495E;
-    color: #ffffff;
+    height: 50px;
+    padding: 15px;
+    /* background-color: #fc8c2c; */
+    box-shadow: 0 3px 6px rgba(72,69,121,.16);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
-  header span {
+  header img {
     display: block;
     position: relative;
-    font-size: 20px;
-    line-height: 1;
-    letter-spacing: .02em;
-    font-weight: 400;
+    height: 70px;
     box-sizing: border-box;
-    padding-top: 16px;
   }
+
+  /* @media only screen and (max-width: 600px) {
+    header {
+      box-shadow: 0 3px 6px rgba(72,69,121,.16);
+    }
+  } */
 </style>

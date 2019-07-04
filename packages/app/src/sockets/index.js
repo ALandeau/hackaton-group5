@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import store from '../stores'
 // import router from '../router'
 
-let socket = io('localhost:3000')
+let socket = io('localhost:5000')
 
 export const startCall = function (userId) {
   socket.emit('call-user', userId)

@@ -1,9 +1,9 @@
 <template>
   <div id="incoming-call">
     <div id="banner">
-      <p>{{user.username}} is calling you</p>
-      <button @click="acceptCall">Accept</button>
-      <button>Reject</button>
+      <p>{{user.username}}Michel vous appelle</p>
+      <button>Refuser</button>
+      <button @click="acceptCall">Accepter</button>
     </div>
   </div>
 </template>
@@ -44,6 +44,25 @@
   }
 
   #banner {
-    color: #ffffff;
+    color:black;
+    background-color: white;
+    border-radius: 5px;
+    padding: 30px;
+    font-weight: bold;
+  }
+
+  button {
+    width: 150px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+  }
+  button:nth-of-type(1) {
+    background-color: white;
+    color: black;
+  }
+  button:nth-of-type(2) {
+    background-color: #3742fa;
+    color: white;
   }
 </style>

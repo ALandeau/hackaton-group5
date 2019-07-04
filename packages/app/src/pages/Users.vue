@@ -1,10 +1,10 @@
 <template>
   <div id="users">
-    <p>Hello {{$store.state.username}}</p>
-    <p>utilisateurs connectés : </p>
+    <h1>Hello {{$store.state.username}},</h1>
+    <h2>Contacts (en ligne): </h2>
     <ul>
-      <li v-for="user in userWithoutMe">{{user.username}} {{user.socket_id}}
-        <button @click="callUser(user)">Appeller</button>
+      <li v-for="(user, index) in userWithoutMe" :key="index"><span>🔵 {{user.username}} {{user.socket_id}}</span>
+        <button @click="callUser(user)">Appeler</button>
       </li>
     </ul>
   </div>
@@ -30,5 +30,46 @@
 </script>
 
 <style scoped>
+#users {
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(72,69,121,.16);
+  border-radius: 5px;
+  width: 600px;
+  max-width: 100%;
+  padding: 15px 30px;
+}
+#users h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+ul{
+  list-style: none;
+  padding-left: 10px;
+}
+li {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: auto;
+  border-bottom: 1px solid whitesmoke;
+  display: flex;
+  justify-content: space-between;
+}
 
+li button {
+  background-color: #fc8c2c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+li:last-of-type {
+  border-bottom: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #users {
+    box-shadow: none;
+  }
+}
 </style>
