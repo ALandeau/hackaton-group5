@@ -12,6 +12,11 @@ const baseState = {
 const initStore = function () {
   let localStore = localStorage.getItem('store')
   localStore = localStore !== null ? JSON.parse(localStore) : {}
+  if (localStore.username !== '') {
+    socket.emit('username', {
+      username: localStore.username
+    })
+  }
   return {...baseState, ...localStore}
 }
 

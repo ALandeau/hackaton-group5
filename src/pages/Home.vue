@@ -21,7 +21,9 @@
         if (this.username === '') return
 
         console.log('Username : ', this.username)
-        this.$store.dispatch('submitUsername', this.username).then(() => this.$router.push('Users'))
+        this.$store.dispatch('submitUsername', this.username).then(() => this.$router.push({
+          name: 'Users'
+        }))
       }
     }
   }
