@@ -1,6 +1,10 @@
-let io = require('socket.io')(3000)
 let crypto = require('crypto')
 let os = require('os')
+
+let app_chat = require('express')();
+let server1 = require('http').Server(app_chat);
+let io = require('socket.io')(server1);
+server1.listen(3000);
 
 console.log('socket server exposed on : 3000')
 let connectedUsers = []
